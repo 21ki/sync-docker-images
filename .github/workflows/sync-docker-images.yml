@@ -1,5 +1,3 @@
-name: 定时同步docker镜像
-
 on:
   #推送的时候跑
   push:
@@ -39,7 +37,7 @@ jobs:
           echo '${{ env.ACTOR }}'
           skopeo sync --insecure-policy \
           --dest-tls-verify=false \
-          --dest-creds={{}}:{{}} \
+          --dest-creds=${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} \
           --src yaml --dest docker \
           sync.yml \
           '${{ env.DEST-REGISTORY }}'
