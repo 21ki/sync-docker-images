@@ -17,3 +17,14 @@ env:
 DOCKER_USERNAME和DOCKER_PASSWORD为仓库的登录密码，本来要写入配置文件容易暴露，所以脱敏一下
 设置入口
 Settings --> 左侧菜单栏 secrets --> New repository secret
+
+# 3.修改需要备份的镜像(配置文件sync.yml)"[]"为备份所有镜像tag
+```shell
+docker.io:
+    tls-verify: false
+    images:
+      #备份青龙
+      whyour/qinglong: []
+      #备份诺兰jdc
+      cheche/nvjdc: []
+```
