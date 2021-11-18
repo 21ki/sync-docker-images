@@ -13,7 +13,10 @@ on:
   workflow_dispatch:
 
 env:
-  MYKI: xiaofan
+  ACTOR: Myki
+  #同步目标仓库名称hub.docker(如果是默认仓库docker.io可省略)
+  DEST-REGISTORY: docker.io/cheche
+
 
 jobs:
   build:
@@ -27,7 +30,16 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           skopeo --version
           echo '${{ env.NOW }}'
-          echo '${{ env.MYKI }}'
+          echo '${{ env.ACTOR }}'
+          skopeo sync --insecure-policy \
+          --dest-tls-verify=false \
+          --dest-creds={{}}:{{}} \
+          --src yaml --dest docker \
+          sync.yml \
+          '${{ env.DEST-REGISTORY }}'
