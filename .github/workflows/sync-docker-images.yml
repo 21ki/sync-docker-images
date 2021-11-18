@@ -19,6 +19,16 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+          - arch: arm64
+          - arch: arm/v6
+          - arch: arm/v7
+          - arch: s390x
+
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -35,7 +45,7 @@ jobs:
           skopeo --version
           echo '${{ env.NOW }}'
           echo '${{ env.ACTOR }}'
-          skopeo sync --insecure-policy \
+          skopeo sync --insecure-policy --all \
           --dest-tls-verify=false \
           --dest-creds=${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} \
           --src yaml --dest docker \
