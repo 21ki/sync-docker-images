@@ -1,6 +1,4 @@
 docker.io:
     tls-verify: false
     images:
-        #nolanhzy/nvjdc: []
-        #busybox: []
-	whyour/qinglong: []
+      whyour/qinglong: []
