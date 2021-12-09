@@ -7,3 +7,5 @@ docker.io:
       saobing/saobing: []
       #阿东短信
       rubyangxg/jd-qinglong: []
+      #诺兰arm
+      nolanhzy/nvjdccaptcha: []
